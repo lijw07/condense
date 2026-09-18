@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${title}">Condense</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin"/>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap"/>
+    <link rel="stylesheet" th:href="@{/css/condense.css}"/>
+    <script defer="defer" th:src="@{/js/condense.js}"></script>
+</head>
+<body>
+
+<a th:fragment="brand" class="brand" th:href="@{/}">Condense<span>.</span></a>
+
+<nav th:fragment="sidebar(active)" class="sidebar">
+    <a class="brand" th:href="@{/dashboard}">Condense<span>.</span></a>
+    <a class="nav" th:href="@{/dashboard}" th:classappend="${active == 'dashboard'} ? 'active'">Dashboard</a>
+    <a class="nav" th:href="@{/calendar}" th:classappend="${active == 'calendar'} ? 'active'">Calendar</a>
+    <a class="nav" th:href="@{/settings}" th:classappend="${active == 'settings'} ? 'active'">Settings</a>
+    <form class="signout" data-sign-out="data-sign-out" method="post" action="#">
+        <button type="submit">Sign out</button>
+    </form>
+</nav>
+
+<div th:fragment="errors" class="notice error hidden" data-error="data-error"></div>
+
+</body>
+</html>

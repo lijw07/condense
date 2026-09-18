@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${theme}">
+<head th:replace="~{fragments/layout :: head('Sign in — Condense')}"></head>
+<body>
+
+<main class="narrow">
+    <a class="brand" th:href="@{/}">Condense<span>.</span></a>
+    <h2>Your inbox is your account</h2>
+    <p class="explain">No passwords. Enter your email and we'll send you a link to your stocks and settings.</p>
+
+    <div th:replace="~{fragments/layout :: errors}"></div>
+
+    <form data-access-form="data-access-form" method="post" action="#">
+        <div class="field">
+            <label class="field-label" for="email">Email</label>
+            <input class="input" id="email" type="email" name="email" placeholder="sam@fastmail.com"
+                   required="required" autocomplete="email"/>
+        </div>
+        <button class="btn block" type="submit">Email me a link</button>
+    </form>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/condense
+    username: condense
+    password: condense
+  thymeleaf:
+    cache: false
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+condense:
+  summarizer: echo
+  email:
+    provider: dev-inbox
+  edgar:
+    user-agent: Condense Local Development (you@example.com)
+    bootstrap-companies: true
+  ollama:
+    base-url: http://localhost:11434
+  digest:
+    site-url: http://localhost:8080
+  schedule:
+    ingest-cron: "0 0 * * * *"
+    daily-digest-cron: "0 0 12 * * *"
+    weekly-digest-cron: "0 0 12 * * SAT"
+
+server:
+  servlet:
+    session:
+      cookie:
+        secure: false
+
+logging:
+  level:
+    io.condense: DEBUG

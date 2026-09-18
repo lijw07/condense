@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${brief.ticker} + ' — ' + ${brief.filingType} + ' filed'">Condense brief</title>
+</head>
+<body style="margin:0; padding:0; background:#0a0a0b;">
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0a0a0b;">
+    <tr>
+        <td align="center" style="padding:32px 16px;">
+
+            <table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0"
+                   style="width:640px; max-width:100%; background:#121214; border:1px solid #26262b;">
+
+                <tr>
+                    <td style="padding:24px 28px 0 28px;">
+                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <td style="font-family:'Space Grotesk',Helvetica,Arial,sans-serif; font-size:16px; font-weight:700; color:#f4f4f5; letter-spacing:-0.02em;">
+                                    Condense<span style="color:#22c55e;">.</span>
+                                </td>
+                                <td align="right" style="font-family:'IBM Plex Mono',Menlo,monospace; font-size:11px; letter-spacing:0.07em; color:#8f8f96;"
+                                    th:text="${sentAt}">SEP 17, 2026 &middot; 4:32 PM ET
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="padding:22px 28px 0 28px;">
+                        <span style="font-family:'IBM Plex Mono',Menlo,monospace; font-size:13px; font-weight:500; color:#f4f4f5;"
+                              th:text="${brief.ticker}">NVDA</span>
+                        <span style="display:inline-block; margin-left:10px; padding:3px 9px; border:1px solid #26262b; border-radius:99px; font-family:'IBM Plex Mono',Menlo,monospace; font-size:11px; color:#8f8f96;"
+                              th:text="${brief.filingType}">10-Q</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="padding:14px 28px 0 28px; font-family:'Space Grotesk',Helvetica,Arial,sans-serif; font-size:20px; font-weight:700; line-height:1.32; color:#f4f4f5; letter-spacing:-0.02em;"
+                        th:text="${brief.headline}">
+                        Quarterly report: data-center carries the quarter, guidance intact.
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="padding:18px 28px 0 28px;">
+                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr th:each="point : ${brief.keyPoints}">
+                                <td valign="top" width="18"
+                                    style="font-size:13px; line-height:1.6; padding-bottom:9px;"
+                                    th:style="'font-size:13px; line-height:1.6; padding-bottom:9px; color:' + ${point.sign().emailColor()}">
+                                    &#9642;
+                                </td>
+                                <td style="font-family:'Space Grotesk',Helvetica,Arial,sans-serif; font-size:14px; line-height:1.6; color:#f4f4f5; padding-bottom:9px;"
+                                    th:text="${point.text}">Key point
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="padding:20px 28px 28px 28px;">
+                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                               style="border-collapse:collapse;">
+                            <tr>
+                                <th align="left" style="font-family:'IBM Plex Mono',Menlo,monospace; font-size:10px; font-weight:500; letter-spacing:0.08em; color:#8f8f96; padding:0 0 7px 0; border-bottom:1px solid #f4f4f5;">
+                                    METRIC
+                                </th>
+                                <th align="right" style="font-family:'IBM Plex Mono',Menlo,monospace; font-size:10px; font-weight:500; letter-spacing:0.08em; color:#8f8f96; padding:0 0 7px 0; border-bottom:1px solid #f4f4f5;"
+                                    th:text="${brief.periodLabel}">Q2 FY27
+                                </th>
+                                <th align="right" style="font-family:'IBM Plex Mono',Menlo,monospace; font-size:10px; font-weight:500; letter-spacing:0.08em; color:#8f8f96; padding:0 0 7px 0; border-bottom:1px solid #f4f4f5;">
+                                    YOY
+                                </th>
+                            </tr>
+                            <tr th:each="metric : ${brief.metrics}">
+                                <td style="font-family:'Space Grotesk',Helvetica,Arial,sans-serif; font-size:13px; color:#f4f4f5; padding:9px 0; border-bottom:1px solid #26262b;"
+                                    th:text="${metric.label}">Revenue
+                                </td>
+                                <td align="right" style="font-family:'IBM Plex Mono',Menlo,monospace; font-size:13px; color:#f4f4f5; padding:9px 0; border-bottom:1px solid #26262b;"
+                                    th:text="${metric.value}">$46.7B
+                                </td>
+                                <td align="right"
+                                    style="font-family:'IBM Plex Mono',Menlo,monospace; font-size:13px; padding:9px 0; border-bottom:1px solid #26262b;"
+                                    th:style="'font-family:IBM Plex Mono,Menlo,monospace; font-size:13px; padding:9px 0; border-bottom:1px solid #26262b; color:' + ${metric.yoySign().emailColor()}"
+                                    th:text="${metric.yoy}">+56%
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+            </table>
+
+            <table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0"
+                   style="width:640px; max-width:100%;">
+                <tr>
+                    <td style="padding:18px 28px 0 28px; font-family:'Space Grotesk',Helvetica,Arial,sans-serif; font-size:12px; line-height:1.7; color:#8f8f96;">
+                        Condense reports what filings say. It is not investment advice.<br/>
+                        You get this because you subscribe to <span th:text="${brief.ticker}">NVDA</span>.
+                        <a th:href="${manageUrl}" style="color:#8f8f96;">Manage preferences</a>
+                        &middot;
+                        <a th:href="${unsubscribeUrl}" style="color:#8f8f96;">Unsubscribe</a>
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

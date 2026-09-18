@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${theme}">
+<head th:replace="~{fragments/layout :: head('Stock detail — Condense')}"></head>
+<body>
+
+<div class="shell">
+    <nav th:replace="~{fragments/layout :: sidebar('dashboard')}"></nav>
+
+    <main class="main">
+        <p class="crumb"><a th:href="@{/dashboard}">Your stocks</a> / <span th:text="${stock.ticker}">NVDA</span></p>
+
+        <div class="stock-head">
+            <span class="ticker" th:text="${stock.ticker}">NVDA</span>
+            <span class="name" th:text="${stock.name}">NVIDIA Corporation</span>
+            <span class="state">Subscribed</span>
+        </div>
+
+        <div th:replace="~{fragments/layout :: errors}"></div>
+
+        <div th:if="${!stock.hasBrief()}" class="card">
+            <h4>No briefs yet</h4>
+            <p class="muted">Nothing has been ingested and summarized for this company yet.
+                The next filing EDGAR publishes will produce the first brief.</p>
+        </div>
+
+        <div class="detail-grid" th:if="${stock.hasBrief()}">
+            <article class="brief">
+                <div class="meta-strip">
+                    <span th:if="${!#strings.isEmpty(stock.brief.number)}">BRIEF &#8470;&nbsp;<span th:text="${stock.brief.number}">047</span></span>
+                    <span th:text="${stock.brief.ticker} + ' / ' + ${stock.brief.filingType}">NVDA / 10-Q</span>
+                    <span th:text="'FILED ' + ${stock.brief.filedOn}">FILED AUG 27</span>
+                </div>
+
+                <div class="inner">
+                    <h3 th:text="${stock.brief.headline}">Headline</h3>
+
+                    <div class="key-point" th:each="point : ${stock.brief.keyPoints}">
+                        <span class="n" th:classappend="${point.sign().css()}" th:text="${point.number()}">01</span>
+                        <span th:text="${point.text}">Key point</span>
+                    </div>
+
+                    <span class="kicker" th:if="${!#lists.isEmpty(stock.brief.metrics)}">THE NUMBERS</span>
+                    <table class="ledger" th:if="${!#lists.isEmpty(stock.brief.metrics)}">
+                        <thead>
+                        <tr>
+                            <th>METRIC</th>
+                            <th th:text="${stock.brief.periodLabel}">Q2 FY27</th>
+                            <th>QOQ</th>
+                            <th>YOY</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="metric : ${stock.brief.metrics}">
+                            <td th:text="${metric.label}">Revenue</td>
+                            <td class="num" th:text="${metric.value}">$46.7B</td>
+                            <td class="num" th:classappend="${metric.qoqSign().css()}" th:text="${metric.qoq}">+11%</td>
+                            <td class="num" th:classappend="${metric.yoySign().css()}" th:text="${metric.yoy}">+56%</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="foot">
+                    <a th:href="${stock.brief.edgarUrl}" rel="noreferrer noopener" target="_blank"
+                       th:text="'Read the full ' + ${stock.brief.filingType} + ' on EDGAR →'">Read on EDGAR</a>
+                    <span class="note" th:if="${stock.brief.sourcePageCount > 0}"
+                          th:text="'condensed from ' + ${stock.brief.sourcePageCount} + ' pages'">condensed from 89 pages</span>
+                </div>
+            </article>
+
+            <aside>
+                <div class="card">
+                    <h4>Filing history</h4>
+                    <div class="filing-row" th:each="filing : ${stock.filings}">
+                        <span class="type" th:text="${filing.type}">10-Q</span>
+                        <span class="what" th:text="${filing.description} ?: ${filing.type} + ' filing'">Quarterly report</span>
+                        <span class="date" th:text="${filing.date}">Aug 27</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>

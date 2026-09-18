@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${theme}">
+<head th:replace="~{fragments/layout :: head('Settings — Condense')}"></head>
+<body>
+
+<div class="shell">
+    <nav th:replace="~{fragments/layout :: sidebar('settings')}"></nav>
+
+    <main class="main">
+        <h2>Settings</h2>
+        <p class="subline">Briefs are tailored to these preferences.</p>
+
+        <div th:replace="~{fragments/layout :: errors}"></div>
+
+        <section class="section" data-pref-group="summaryStyle">
+            <h4>Summary style</h4>
+            <div class="chips">
+                <button class="chip" type="button" data-pref-value="BULLETS_ONLY"
+                        th:classappend="${preferences.summaryStyleIs('BULLETS_ONLY')} ? 'on'">Bullets only</button>
+                <button class="chip" type="button" data-pref-value="KEY_POINTS_AND_NUMBERS"
+                        th:classappend="${preferences.summaryStyleIs('KEY_POINTS_AND_NUMBERS')} ? 'on'">Key points + numbers table</button>
+                <button class="chip" type="button" data-pref-value="SHORT_NARRATIVE"
+                        th:classappend="${preferences.summaryStyleIs('SHORT_NARRATIVE')} ? 'on'">Short narrative</button>
+            </div>
+        </section>
+
+        <section class="section" data-pref-group="delivery">
+            <h4>Delivery</h4>
+            <div class="chips">
+                <button class="chip" type="button" data-pref-value="PER_FILING"
+                        th:classappend="${preferences.deliveryIs('PER_FILING')} ? 'on'">Per filing, as they drop</button>
+                <button class="chip" type="button" data-pref-value="DAILY"
+                        th:classappend="${preferences.deliveryIs('DAILY')} ? 'on'">Daily digest</button>
+                <button class="chip" type="button" data-pref-value="WEEKLY"
+                        th:classappend="${preferences.deliveryIs('WEEKLY')} ? 'on'">Weekly digest</button>
+            </div>
+        </section>
+
+        <section class="section" data-pref-group="tone">
+            <h4>Tone</h4>
+            <div class="chips">
+                <button class="chip" type="button" data-pref-value="NEUTRAL_ANALYST"
+                        th:classappend="${preferences.toneIs('NEUTRAL_ANALYST')} ? 'on'">Neutral analyst</button>
+                <button class="chip" type="button" data-pref-value="PLAIN_ENGLISH"
+                        th:classappend="${preferences.toneIs('PLAIN_ENGLISH')} ? 'on'">Plain English</button>
+                <button class="chip" type="button" data-pref-value="TERSE_BULLETS"
+                        th:classappend="${preferences.toneIs('TERSE_BULLETS')} ? 'on'">Terse bullets</button>
+            </div>
+        </section>
+
+        <section class="section">
+            <h4>Include</h4>
+            <div class="chips">
+                <button class="chip" type="button" data-pref-toggle="calendarReminders"
+                        data-label="Earnings calendar reminders"
+                        th:classappend="${preferences.calendarReminders} ? 'on'">
+                    Earnings calendar reminders
+                    <span th:if="${preferences.calendarReminders}">&middot; On</span>
+                    <span th:unless="${preferences.calendarReminders}">&middot; Off</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="section" data-pref-group="appearance">
+            <h4>Appearance</h4>
+            <div class="chips">
+                <button class="chip" type="button" data-pref-value="DARK"
+                        th:classappend="${preferences.appearanceIs('DARK')} ? 'on'">Dark</button>
+                <button class="chip" type="button" data-pref-value="LIGHT"
+                        th:classappend="${preferences.appearanceIs('LIGHT')} ? 'on'">Light</button>
+                <button class="chip" type="button" data-pref-value="SYSTEM"
+                        th:classappend="${preferences.appearanceIs('SYSTEM')} ? 'on'">System</button>
+            </div>
+        </section>
+    </main>
+</div>
+
+</body>
+</html>

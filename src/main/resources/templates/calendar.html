@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${theme}">
+<head th:replace="~{fragments/layout :: head('Calendar — Condense')}"></head>
+<body>
+
+<div class="shell">
+    <nav th:replace="~{fragments/layout :: sidebar('calendar')}"></nav>
+
+    <main class="main">
+        <h2>Calendar</h2>
+        <p class="subline">Expected filings for your stocks. A brief lands in your inbox after each one.</p>
+
+        <div th:if="${#lists.isEmpty(months)}" class="empty">
+            Nothing expected yet. Filing dates appear once you subscribe to a company with a filing history.
+        </div>
+
+        <th:block th:each="month : ${months}">
+            <span class="month-kicker" th:text="${month.month}">NOVEMBER</span>
+            <div class="event-row" th:each="event : ${month.events}">
+                <span class="date" th:text="${event.date}">NOV 3</span>
+                <span class="ticker" th:text="${event.ticker}">AAPL</span>
+                <span class="label" th:text="${event.label}">10-K annual report expected</span>
+                <span class="time" th:text="${event.time}">After close</span>
+            </div>
+        </th:block>
+    </main>
+</div>
+
+</body>
+</html>

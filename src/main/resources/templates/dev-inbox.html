@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Development inbox')}"></head>
+<body>
+<main>
+    <h1>Development inbox</h1>
+    <p class="lede">Messages captured instead of sent. This page exists only while
+        <code>condense.email.provider</code> is <code>dev-inbox</code>.</p>
+
+    <form method="post" action="/dev/inbox/clear" th:if="${!emails.isEmpty()}" class="toolbar">
+        <button type="submit" class="secondary">Clear</button>
+    </form>
+
+    <p class="meta" th:if="${emails.isEmpty()}">Nothing captured yet. Subscribe on the
+        <a href="/">home page</a> and it will appear here.</p>
+
+    <div class="card" th:each="entry : ${emails}">
+        <h3 th:text="${entry.message.subject}">Subject</h3>
+        <p class="meta">
+            <span th:text="${entry.message.to}">to</span>
+            &middot;
+            <span th:text="${#temporals.format(entry.receivedAt, 'HH:mm:ss')}">time</span>
+        </p>
+        <p th:if="${entry.primaryLink() != null}" class="email-link">
+            <a th:href="${entry.primaryLink()}">Open this link</a>
+        </p>
+        <pre class="email-body"
+             th:text="${entry.message.textBody}">body</pre>
+    </div>
+
+    <footer><a href="/">Back to signup</a></footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,36 @@
+databases:
+  - name: condense-db
+    databaseName: condense
+    user: condense
+    plan: basic-256mb
+
+services:
+  - type: web
+    name: condense
+    runtime: docker
+    plan: starter
+    healthCheckPath: /actuator/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: condense-db
+          property: connectionString
+      - key: DATABASE_USERNAME
+        fromDatabase:
+          name: condense-db
+          property: user
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: condense-db
+          property: password
+      - key: EDGAR_USER_AGENT
+        sync: false
+      - key: OLLAMA_BASE_URL
+        sync: false
+      - key: OLLAMA_MODEL
+        value: llama3.1:8b
+      - key: SITE_URL
+        sync: false
+      - key: DIGEST_FROM_ADDRESS
+        sync: false

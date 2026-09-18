@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${heading}">Condense</title>
+</head>
+<body style="margin:0; padding:0; background:#0a0a0b;">
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0a0a0b;">
+    <tr>
+        <td align="center" style="padding:32px 16px;">
+
+            <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0"
+                   style="width:560px; max-width:100%; background:#121214; border:1px solid #26262b;">
+                <tr>
+                    <td style="padding:28px 32px 0 32px; font-family:'Space Grotesk',Helvetica,Arial,sans-serif; font-size:16px; font-weight:700; color:#f4f4f5; letter-spacing:-0.02em;">
+                        Condense<span style="color:#22c55e;">.</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:20px 32px 0 32px; font-family:'Space Grotesk',Helvetica,Arial,sans-serif; font-size:22px; font-weight:700; line-height:1.3; color:#f4f4f5; letter-spacing:-0.02em;"
+                        th:text="${heading}">
+                        Confirm your Condense subscription
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:12px 32px 0 32px; font-family:'Space Grotesk',Helvetica,Arial,sans-serif; font-size:14px; line-height:1.6; color:#8f8f96;"
+                        th:text="${intro}">
+                        Confirm this address and your stocks dashboard opens.
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:26px 32px 0 32px;">
+                        <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <td style="background:#22c55e; border-radius:6px;">
+                                    <a th:href="${link}"
+                                       style="display:inline-block; padding:13px 26px; font-family:'Space Grotesk',Helvetica,Arial,sans-serif; font-size:15px; font-weight:600; color:#04150a; text-decoration:none;"
+                                       th:text="${buttonLabel}">Verify my email</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:22px 32px 0 32px; font-family:'Space Grotesk',Helvetica,Arial,sans-serif; font-size:12px; line-height:1.6; color:#8f8f96;">
+                        Or paste this into your browser:
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:6px 32px 0 32px; font-family:'IBM Plex Mono',Menlo,monospace; font-size:11px; line-height:1.5; word-break:break-all;">
+                        <a th:href="${link}" th:text="${link}" style="color:#22c55e;">link</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:22px 32px 30px 32px; font-family:'Space Grotesk',Helvetica,Arial,sans-serif; font-size:12px; line-height:1.6; color:#8f8f96; border-top:1px solid #26262b; margin-top:20px;">
+                        This link can be used once and expires in
+                        <span th:text="${lifetimeHours}">24</span> hours.
+                        If you did not request it, ignore this email.
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

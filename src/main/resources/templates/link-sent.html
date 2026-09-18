@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${theme}">
+<head th:replace="~{fragments/layout :: head('Check your inbox — Condense')}"></head>
+<body>
+
+<main class="narrow centered">
+    <div class="check">&#10003;</div>
+    <h2>Check your inbox</h2>
+    <p class="explain">
+        We sent an access link to <strong th:text="${email}">sam@fastmail.com</strong>.
+        It signs you straight in &mdash; valid for 15 minutes.
+    </p>
+
+    <div th:replace="~{fragments/layout :: errors}"></div>
+
+    <button class="btn outline block" type="button" th:attr="data-resend=${email}">Resend link</button>
+    <p class="alt">Wrong address? <a th:href="@{/access}">Use a different email</a></p>
+    <p class="alt" th:if="${devInboxEnabled}"><a th:href="@{/dev/inbox}">Open the dev inbox</a></p>
+</main>
+
+</body>
+</html>

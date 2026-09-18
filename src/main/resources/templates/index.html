@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${theme}">
+<head th:replace="~{fragments/layout :: head('Condense — follow your stocks, without the noise')}"></head>
+<body>
+
+<header class="topbar">
+    <a class="brand" th:href="@{/}">Condense<span>.</span></a>
+    <nav>
+        <a class="signin" th:href="@{/access}">Sign in</a>
+        <a class="btn" th:href="@{/access}">Get started</a>
+    </nav>
+</header>
+
+<main class="hero">
+    <div th:replace="~{fragments/layout :: errors}"></div>
+    <h1>Follow your stocks, without the noise.</h1>
+    <p class="subline">Subscribe to a stock and get short email briefs on its filings.</p>
+    <form data-start-form="data-start-form" method="post" action="#">
+        <input class="input" type="email" name="email" placeholder="you@email.com" required="required"
+               autocomplete="email"/>
+        <button class="btn" type="submit">Start free</button>
+    </form>
+    <p class="caption">No account and no password. An email address is the whole signup.</p>
+</main>
+
+<section class="how">
+    <div class="cell">
+        <span class="step">01</span>
+        <h3>Subscribe to a ticker</h3>
+        <p>Pick the companies you hold or watch. That's the whole setup.</p>
+    </div>
+    <div class="cell">
+        <span class="step">02</span>
+        <h3>We read the filings</h3>
+        <p>10-Ks, 10-Qs and 8-Ks, condensed to what changed.</p>
+    </div>
+    <div class="cell">
+        <span class="step">03</span>
+        <h3>You get the brief</h3>
+        <p>An email after a filing drops: key points and the numbers table.</p>
+    </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:attr="data-theme=${theme}">
+<head th:replace="~{fragments/layout :: head('Your stocks — Condense')}"></head>
+<body>
+
+<div class="shell">
+    <nav th:replace="~{fragments/layout :: sidebar('dashboard')}"></nav>
+
+    <main class="main">
+        <h2>Your stocks</h2>
+        <p class="subline" th:text="${subscriber.email}">sam@fastmail.com</p>
+
+        <div th:replace="~{fragments/layout :: errors}"></div>
+
+        <div class="search">
+            <span class="icon">&#8981;</span>
+            <input class="input" type="text" data-ticker-search="data-ticker-search"
+                   placeholder="Add a ticker or company name" autocomplete="off"/>
+            <ul class="results" data-ticker-results="data-ticker-results"></ul>
+        </div>
+
+        <div class="stock-list">
+            <div th:if="${#lists.isEmpty(stocks)}" class="empty">
+                No stocks yet. Search above to subscribe to your first ticker.
+            </div>
+
+            <th:block th:each="stock : ${stocks}">
+                <div class="stock-row">
+                    <span class="ticker" th:text="${stock.ticker}">NVDA</span>
+                    <a class="name" th:href="@{'/stocks/' + ${stock.ticker}}" th:text="${stock.name}">NVIDIA Corp.</a>
+                    <span class="last" th:if="${stock.hasLatestBrief()}"
+                          th:text="'Last brief: ' + ${stock.lastFormType} + ' · ' + ${stock.lastFiledOn}">Last brief: 8-K &middot; Sep 16</span>
+                    <span class="last" th:if="${stock.hasFilings() and !stock.hasLatestBrief()}">Awaiting first brief</span>
+                    <span class="last" th:if="${!stock.hasFilings()}">No filings yet</span>
+                    <button class="act" type="button" th:attr="data-remove=${stock.ticker}"
+                            th:title="'Unsubscribe from ' + ${stock.ticker}">&#10005;</button>
+                    <button class="act" type="button" th:if="${stock.hasLatestBrief()}"
+                            th:attr="data-expand=${stock.panelId()}" aria-expanded="false">&#8250;</button>
+                </div>
+
+                <div class="expanded hidden" th:if="${stock.hasLatestBrief()}" th:id="${stock.panelId()}">
+                    <span class="kicker"
+                          th:text="'MOST RECENT BRIEF · ' + ${stock.latestBrief.formType} + ' · FILED ' + ${stock.latestBrief.filedOn}">MOST RECENT BRIEF</span>
+                    <p class="headline" th:text="${stock.latestBrief.headline}">Headline</p>
+                    <p class="body" th:text="${stock.latestBrief.body}">Summary</p>
+                    <a th:href="@{'/stocks/' + ${stock.ticker}}">Open full history &rarr;</a>
+                </div>
+            </th:block>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>
